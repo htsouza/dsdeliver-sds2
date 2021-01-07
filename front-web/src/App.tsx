@@ -1,9 +1,11 @@
+import React from 'react';
 import './App.css';
+import Navbar from './Navbar/Index';
 
 function App() {
   return (
     <div>
-      <h1>Hello SDS2!</h1>
+      <Navbar />
     </div>
   );
 }
