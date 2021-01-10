@@ -40,20 +40,35 @@ function Orders() {
         }
     }
 
+    const validationFields = (numProducts: number) => {
+        let result = false;
+        if (numProducts === 0 ) {
+            toast.warning('Selecione ao menos um produto.');
+            result = true;
+        } else if (orderLocation === undefined) {
+            toast.warning('Informe o endereço para entrega');
+            result = true;
+        }
+        return result;
+    }
+
     const handleSubmit = () => {
         const productsIds = selectedProducts.map(({ id }) => ({ id }));
-        const payload = {
-            ...orderLocation!,
-            products: productsIds
-        }
 
-        saveOrder(payload).then( response => {
-            toast.error(`Pedido enviado com sucesso! Nº do pedido: ${response.data.id}`);
-            setSelectedProducts([]);
-        })
-        .catch(() => {
-            toast.warning('Erro ao enviar pedido');
-        })
+        if (!validationFields(productsIds.length)) {
+            const payload = {
+                ...orderLocation!,
+                products: productsIds
+            }
+    
+            saveOrder(payload).then( response => {
+                toast.error(`Pedido enviado com sucesso! Nº do pedido: ${response.data.id}`);
+                setSelectedProducts([]);
+            })
+            .catch(() => {
+                toast.warning('Erro ao enviar pedido');
+            })
+        }
     }
 
     return (

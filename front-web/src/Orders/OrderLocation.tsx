@@ -66,6 +66,7 @@ function OrderLocation({onChangeLocation}: Props) {
                         className="filter"
                         loadOptions={loadOptions}
                         onChange={value => handleChangeSelect(value as Place)}
+                        required
                     />
                 </div>
                 <MapContainer
